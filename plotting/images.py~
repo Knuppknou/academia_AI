@@ -1,0 +1,23 @@
+
+
+def plot_data(self, data=None, title=None, vmin=-5, vmax=5, cmap='Greys'):
+        ''' Plot data using digits.py methods plot_image and plot_images. '''
+
+        if isinstance(data, digits.Digit):
+            return digits.plot_image(
+                data.image,
+                title=title,
+                vmin=vmin,
+                vmax=vmax,
+                cmap=cmap)
+        if data is None:
+            data = self.data
+        if len(data.shape) < 3:
+            digits.plot_image(
+                data,
+                title=title,
+                vmin=vmin,
+                vmax=vmax,
+                cmap=cmap)
+        else:
+            digits.plot_images(data, vmin=vmin, vmax=vmax, cmap=cmap)
