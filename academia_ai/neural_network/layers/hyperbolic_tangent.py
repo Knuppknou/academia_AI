@@ -23,7 +23,7 @@ class HyperbolicTangentLayer(object):
         self.newdata = self.alpha * np.tanh(self.m * data)
         return self.newdata + self.beta * data
 
-    def back_prop(self, data):
+    def back_prop(self, data, learning_rate=0):
         return data * (self.m * self.alpha -
                        (self.m * self.newdata**2) + self.beta)
 

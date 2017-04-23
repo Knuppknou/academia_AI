@@ -20,7 +20,8 @@ def plot_image(image, ax=None, title=None, figsize=(3, 3),
     ax.axes.yaxis.set_ticks([])
     return ax
 
-def plot_images(images,ax=None,title=None,base_size=(3,3),vmin=0,vmax=1,cmap='Greys'):
+def plot_images(images, ax=None, title=None, base_size=(3,3),
+                vmin=0,vmax=1,cmap='Greys'):
     ''' Docstring. '''
     # Check if user really provided 3-dimensional numpy object
     if len(images.shape) < 3:

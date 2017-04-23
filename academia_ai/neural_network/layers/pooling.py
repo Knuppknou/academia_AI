@@ -5,7 +5,7 @@ class PoolingLayer(object):
     """Reduce the size of input images by pooling pixels together.
 
     The typus can be
-    "mean": ...
+    "mean": takes the average of a few pixels which will be one pixel.
     "max": 
     Parameter factor specifies...?
     """
@@ -18,7 +18,7 @@ class PoolingLayer(object):
     # Remark: propagations can be done seperately of the depth
     # in: data[depth][size][size]
     # out: data[depth][size/self.factor][size/self.factor]
-    def forward_prop(self, data, debug=False):
+    def forward_prop(self, data):
         newdata = np.zeros(
             (data.shape[0],
              (data.shape[1]) //
@@ -44,7 +44,7 @@ class PoolingLayer(object):
                             1) *
                         self.factor]
                     if self.typus == 'max':
-                        # TODO gaus distribution
+                        # TODO gauss distribution
                         # find index of the greatest value
                         ind = np.add(
                             np.unravel_index(
@@ -64,14 +64,11 @@ class PoolingLayer(object):
         if self.typus == 'mean':
             self.dodi = (1 / self.factor**2) * \
                 np.sqrt(data.shape[1] * data.shape[2] / (self.factor**2))
-        if debug:
-            print("Calculated forward propagation for pooling layer")
-        # print(self.backdata)
         return newdata
 
     # in: data[depth][size/self.factor][size/self.factor]
     # out: data[depth][size][size]
-    def back_prop(self, data, epsilon, debug=False):
+    def back_prop(self, data, epsilon):
         # no internal weight-derivation needed in the pooling-layer
         # have: dE/do[d,i,j]=data[d,i,j]
         # want: dE/di[d,i',j']=dF/do[d,i,j]*do[d,i,j]/di[d,i',j']
@@ -93,8 +90,7 @@ class PoolingLayer(object):
             newdata = np.repeat(data, self.factor, axis=1)
             newdata = np.repeat(newdata, self.factor, axis=2)
             newdata *= self.dodi
-        if debug:
-            print("Calculated backpropagation for pooling layer")
+            
         return newdata
 
     def pprint(self):

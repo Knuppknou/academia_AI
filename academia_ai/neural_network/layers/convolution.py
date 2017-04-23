@@ -61,10 +61,6 @@ class ConvolutionLayer(object):
         skip nothing;
         stride=2 means slide two blocks, skip every second block and so on.)
 
-        Warning, pain ahead: Contains some non-trivial numpy-magic,
-        idea stolen from the net:
-        http://stackoverflow.com/questions/30109068/implement-matlabs-im2col-sliding-in-python
-
         in: data[z,x,y]
         out: res.reshape[z*nFilters,]
         '''
@@ -97,7 +93,7 @@ class ConvolutionLayer(object):
         # and return all blocks stacked vertically
         return np.vstack(out.swapaxes(1, 2))
 
-    def forward_prop(self, data, debug=False):
+    def forward_prop(self, data):
         ''' In: [depth,X,Y], Out: [depth*nr_filters)][(X/stride)+1][(Y/stride)+1]
        
         Puts image and filter together.
@@ -137,7 +133,7 @@ class ConvolutionLayer(object):
         # Restore the three-dimensional shape (depth, x, y) of the output data
         return np.reshape(res, output_shape, order='C')
 
-    def back_prop(self, data, epsilon, debug=False):
+    def back_prop(self, data, epsilon):
         ''' In: data = dEdo[z*nFilters,x/stride, y/stride], Out: dEdi[z,x,y]
         
         epsilon is the learning parameter. With epsilon you can set the learning speed.

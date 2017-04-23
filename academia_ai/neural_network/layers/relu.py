@@ -14,5 +14,5 @@ class ReLuLayer(object):
         self.i = (data >= 0) * data  # save for back_prop
         return (data >= 0) * data
 
-    def back_prop(self, data):
+    def back_prop(self, data, learning_rate=0):
         return (self.i >= 0) * data

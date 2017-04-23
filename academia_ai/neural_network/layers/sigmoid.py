@@ -30,8 +30,7 @@ class SigmoidLayer(object):
             return self.m * self.sigmoid_vector(data, self.tp, self.m) * (
                 1 - self.sigmoid_vector(data, self.tp, self.m))
 
-    def __init__(self, iid=-1, tp=0.5, m=20, shape=(2, 2), learning=True):
-        self.iid = iid
+    def __init__(self, tp=0.5, m=20, shape=(2, 2), learning=True):
         self.shape = shape
         self.learning = learning
 
@@ -50,7 +49,7 @@ class SigmoidLayer(object):
         self.m_vector = np.array(m_list)
 
     def pprint(self):
-        print("sigmoid layer with ID=", self.iid, "and shape=", self.shape)
+        print("sigmoid layer with shape=",  self.shape)
 
     def forward_prop(self, data, debug=False):
         if not(data.shape == self.shape):
@@ -62,7 +61,7 @@ class SigmoidLayer(object):
         self.o_vector = np.array(o_list)
         return self.o_vector.reshape(self.shape)
 
-    def back_prop(self, data, epsilon=0, debug=False):
+    def back_prop(self, data, epsilon=0):
         data = data.ravel().copy()
         o = self.o_vector
         dedtp = data * (self.m_vector * o * (o - 1))

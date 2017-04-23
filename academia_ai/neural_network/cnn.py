@@ -60,8 +60,8 @@ class ConvolutionalNeuralNet(object):
         """ Initialize emtpy convolutional neural net, ready to add layers."""
         
         self.layers = []
-        self.success_list = []  #  added recently--> problem with older nets
-        
+        self.success_list = []  # added recently -> problem with older nets
+
     def add_layer(self, input_layer):
         """Append input_layer to the list of layers in this net."""
 
@@ -133,7 +133,7 @@ class ConvolutionalNeuralNet(object):
             self.dEdout[i][0][0]=deviation[i]
     """
 
-    def back_prop(self, derror_dout, learning_rate=0,
+    def back_prop(self, derror_dout, learning_rate,
                   save_intermediate=False):
         """Propagate backwards through all network layers and adjust weights.
 
@@ -168,7 +168,7 @@ class ConvolutionalNeuralNet(object):
                           'solution_list entry do not match! Please check',
                           'shape of solution_list.')
                 e, dedo = self.error_function(o, s)
-                self.back_prop(dedo, learning_rate, False)
+                self.back_prop(dedo, learning_rate, save_intermediate=False)
 
     def train2(self, training_images, training_solutions, test_images,
                test_solutions, learning_rate, iterations=1,

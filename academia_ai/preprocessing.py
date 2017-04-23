@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import os
 from .leafs import leafs
-print("Loaded preprocessing!")
+print("Reloaded preprocessing!")
 
 def normalize(dataset):
     '''normalize data so that over all imeges the pixels on place (x/y) have mean = 0 and are standart distributed'''
@@ -135,8 +135,10 @@ def center_leaf(path, square_side=2000):
 
 def find_overlap(root_path):
     '''function to overlap all pictures
-    creates a image of all overlayed pictures so the interesting area of the picture can manually be classified'''
-    maximum = np.zeros((3456, 4608)) #
+    creates a image of all overlayed pictures so the interesting area of the picture can manually be classified
+    the size of the imaage has to bee ajusted
+    '''
+    maximum = np.zeros((3456, 4608)) 
     for root, dirs, files in os.walk(root_path, topdown=False):
         for name in files:
             im_path = (os.path.join(root, name))
