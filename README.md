@@ -4,12 +4,15 @@ This is the code repository of the student research group [academia Wattwil](htt
 ## Requirements
 * python>3
 * numpy
-* pickle
-* (matplotlib)
-* (jupyter)
-
+* matplotlib
+* jupyter
+* pillow (needed only for Preprocessing)
 ## Documentation
-...  
+[Create Network](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Simple_Fully_Connected_Network_for_digits.ipynb)
 
+[CNN for Digits](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Neural_Network_for_Digits.ipynb)
+[CNN for Leafs](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Neural_Network_for_Leafs.ipynb)
 
+[Preprocessing](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/HowToUse-Preprocessing-2017-01-03.ipynb)
 
+[report]()| [poster]()| [SOP]()
