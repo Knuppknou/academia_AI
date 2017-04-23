@@ -9,7 +9,7 @@ This is the code repository of the student research group [academia Wattwil](htt
 * (jupyter)
 
 ## Documentation
-...  
+  
 
 
 
