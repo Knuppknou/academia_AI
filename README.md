@@ -6,7 +6,7 @@ This is the code repository of the student research group [academia Wattwil](htt
 * numpy
 * matplotlib
 * jupyter
-
+* pillow (needed only for Preprocessing)
 ## Documentation
 [Create Network](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Simple_Fully_Connected_Network_for_digits.ipynb)
 
