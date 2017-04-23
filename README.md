@@ -15,6 +15,4 @@ This is the code repository of the student research group [academia Wattwil](htt
 
 [Preprocessing](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/HowToUse-Preprocessing-2017-01-03.ipynb)
 
-[report]()
-[poster]()
-[SOP]()
+[report]()| [poster]()| [SOP]()
