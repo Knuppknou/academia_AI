@@ -2,10 +2,10 @@ import numpy as np
 
 
 class ConvolutionLayer(object):
-    '''Contains a number of filters and can convolve them with an input image.
-
-    ###  SOMEONE FORGOT TO UPDATE DOCUMENTATION!!! ...
-
+    '''Contains a number of filters and can convolve them with an input image
+    
+    It first puts the image and the filters together(forwardpropagation) and then relates pixels of a filter to the error.(backpropagation)
+    
     Parameters:
     Integer padding is the amount of zeros that will be added around
     the input image. It is used to control the output dimensions of the
@@ -13,12 +13,16 @@ class ConvolutionLayer(object):
     by the given amount of pixels.
     Integer stride is used to specify the distance in pixels a filter
     is moved during convolution.
-
     I.e. stride=1 means every pixel gets sampled, stride=2
-    means every other pixel is skipped.
+    means every other pixel is skipped. (But you should ignore stride because it doesn't work.)
+    self.F are the filters flattened into colums.
+    
+    
     '''
 
     def __init__(self, nr_filters=3, filter_shape=(9, 9), stride=1):
+        if stride != 1:
+            raise NotImplementedError('stride should be =1')
         self.nr_filters = nr_filters
         self.filter_shape = filter_shape
         if(filter_shape[0] % 2 == 0 and filter_shape[1] % 2 == 0):  # not OR ?
@@ -36,7 +40,7 @@ class ConvolutionLayer(object):
         self.filters_to_columns(filters)
 
     def filters_to_columns(self, filters):
-        ''' Flattens filters into columns of the matrix self.F. '''
+        ''' Flattens filters into columns of the matrix self.F.'''
 
         F = [f.ravel()[:, None] for f in filters]
         self.F = np.hstack(F)
@@ -53,9 +57,9 @@ class ConvolutionLayer(object):
 
         Input data should have shape (z,x,y) (with padding) and will be split
         into blocks of size shape.
-        Stride: Optional skipping of blocks; stride=1 means slide by one block,
+        (Stride: Optional skipping of blocks; stride=1 means slide by one block,
         skip nothing;
-        stride=2 means slide two blocks, skip every second block and so on.
+        stride=2 means slide two blocks, skip every second block and so on.)
 
         Warning, pain ahead: Contains some non-trivial numpy-magic,
         idea stolen from the net:
@@ -95,13 +99,10 @@ class ConvolutionLayer(object):
 
     def forward_prop(self, data, debug=False):
         ''' In: [depth,X,Y], Out: [depth*nr_filters)][(X/stride)+1][(Y/stride)+1]
-
+       
+        Puts image and filter together.
         Uses the methods filters_to_columns and data_to_rows to convert
         the convolution into a single large matrix multiplication.
-
-        TODO:
-        1. Check what self.i should be. Might depend on
-           zero-padding convention!
         '''
         if not (data.shape[1] % self.stride == 0):
             print('ERROR: data.shape needs to be divisible by stride!')
@@ -138,11 +139,11 @@ class ConvolutionLayer(object):
 
     def back_prop(self, data, epsilon, debug=False):
         ''' In: data = dEdo[z*nFilters,x/stride, y/stride], Out: dEdi[z,x,y]
-
-        TODO:
-        1. dEdi shape is not generally correct now.
-        2. zero padding might lead to errors!
-        3. Stride does not work.
+        
+        epsilon is the learning parameter. With epsilon you can set the learning speed.
+        
+        
+        (Todo: dEdi shape is not generally correct now.)
         '''
 
         n = self.nr_filters

@@ -1,16 +1,18 @@
 class ReLuLayer(object):
-    # TODO: gaus distribution
-    ''' ReLu: for some nonlinearity. o=max(0,i)'''
+    """Applies ouput=max(input, 0) element-wise.
 
-    def __init__(self, iid=-1):
-        self.iid = iid
+    ReLu: Rectified linear unit. Introduces nonlinearity to the network.
+    """
+
+    def __init__(self):
+        pass
 
     def pprint(self):
-        print("ReLu Layer with ID=", self.iid)
+        print("ReLu Layer")
 
-    def forward_prop(self, data, debug=False):
-        self.i = (data >= 0) * data  # for back_prop
+    def forward_prop(self, data):
+        self.i = (data >= 0) * data  # save for back_prop
         return (data >= 0) * data
 
-    def back_prop(self, data, debug=False):
+    def back_prop(self, data):
         return (self.i >= 0) * data

@@ -2,9 +2,18 @@ import numpy as np
 
 
 class FullyConnectedLayer(object):
-    """A layer with weights connecting every input to every output node."""
+    """A layer with weights connecting every input to every output node.
+
+    The weights are a matrix W and forward propagation is just matrix
+    multiplication with W from the right.
+    """
 
     def __init__(self, input_shape, output_shape):
+        """Create new FullyConnectedLayer and initialize weights randomly.
+
+        Need two tuples (z, x, y) input_shape and output_shape specifying the
+        dimensions of input and output of this layer.
+        """
         self.input_shape = input_shape
         self.output_shape = output_shape
         # Initialize random weight matrix, Gaussian with mean = 0

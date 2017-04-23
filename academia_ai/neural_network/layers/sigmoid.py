@@ -2,15 +2,19 @@ import numpy as np
 
 
 class SigmoidLayer(object):
-    # TODO: gauss distribution
-
+    ''' With the sigmoid function the data pixels are set on 0 or 1 generally.
+    
+    tp is the turning point of the sigmoid function.
+    m is the slope of the function.
+    Todo: implement Gauss distribution
+    '''
     class Sigmoid(object):
 
         def sigmoid(x, tp, m):
             y = 1 / (1 + (np.exp(-m * (x - tp))))
             return y
 
-        sigmoid_vector = np.vectorize(sigmoid)  # This is also a function
+        sigmoid_vector = np.vectorize(sigmoid)
 
         def __init__(self, tp=0, m=20):
             self.tp = tp

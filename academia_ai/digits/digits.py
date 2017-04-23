@@ -34,18 +34,7 @@ class Digit(object):
                  for j in range(image_shape[1])]
             print(' '.join(l))
 
-    """  # reimplement this using plotting package
-    def plot_image(self, image=None, title=None):
-        if image is None:
-            image = self.image
-        if title is None:
-            title = 'Handwritten Digit ID ' + \
-                str(self.iid) + ' with solution ' + str(self.label)
-        imgplot = plot_image(image, title=title)
-        return None
-    """
-
-
+            
 class DigitCollection(object):
     """Store a collection of digits and provide methods for preprocessing.
 

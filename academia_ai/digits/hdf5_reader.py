@@ -1,4 +1,4 @@
-''' Read HDF5 file containing the 70000 MNIST handwritten digits. '''
+"""Read HDF5 file containing the 70000 MNIST handwritten digits."""
 
 import h5py
 import numpy as np

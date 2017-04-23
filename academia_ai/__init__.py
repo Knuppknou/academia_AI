@@ -24,6 +24,6 @@ from .neural_network.layers.sigmoid import SigmoidLayer
 from .digits import digits
 # leafs - code specific to leaf classification
 from .leafs import leafs
-# preprocessing - image reading, compression and other preprocessing
-from .preprocessing import preprocessing
+import academia_ai.preprocessing
+import academia_ai.plotting
 # flake8: noqa

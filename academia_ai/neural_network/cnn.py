@@ -1,5 +1,4 @@
-"""Please add documentation here."""
-
+"""Contains basic neural network structure that will host neural layers."""
 
 import os.path
 import numpy as np
@@ -13,7 +12,6 @@ class ConvolutionalNeuralNet(object):
     layers, pooling layers or fully connected layers.
 
     Usage:
-    ...
     1. Create the layers that will be used in the network and create an empty
        ConvolutionalNeuralNet.
     2. Add all layers using the add_layer() method in the order they should be
@@ -24,7 +22,7 @@ class ConvolutionalNeuralNet(object):
     5. Repeat 3-4 as often as one can afford.
 
     Example:
-    ...
+    -> See ipython notebooks for demonstrations.
 
 
     Notes / To Do:
@@ -38,10 +36,7 @@ class ConvolutionalNeuralNet(object):
     - Tuning the learning_rate is crucial. Should provide functions to help.
     - The save and load using pickling is pretty bad, as changes to the source
       code quickly render saved files useless.
-    - Should not hard code debug stuff in here... Timing can be done from then
-      outside world, as debugging. Instead, give the option to save data for
-      analysis or plotting!
-
+ 
     Implementation details:
     Each layer must provide methods forward_prop and back_prop to move
     through the network layers.
@@ -49,19 +44,24 @@ class ConvolutionalNeuralNet(object):
     Each single layer forward_prop method takes data as input in the form of a
     three-dimensional numpy array data[depth][x][y] and return the propagated
     data which is also three-dimensional but all individual dimensions might
-    change.
+    change. The last layer of the network consist of output classes and during
+    training, the output of the last layer is compared to the solution using
+    an error function.
 
     Backpropagation of each single layer, back_prop, consists of two steps:
-    ...
-
+    1. From the input dError/dOutput calculate dError/dInput to pass it to
+       the previous layer in backpropagation.
+    2. In case of variable weights, calculate dError/dWeights to adjust
+       the weights in the direction of decreasing error.
 
     """
 
     def __init__(self):
         """ Initialize emtpy convolutional neural net, ready to add layers."""
-
+        
         self.layers = []
-
+        self.success_list = []  #  added recently--> problem with older nets
+        
     def add_layer(self, input_layer):
         """Append input_layer to the list of layers in this net."""
 
@@ -152,11 +152,14 @@ class ConvolutionalNeuralNet(object):
         else:
             for layer in self.layers[::-1]:
                 derror_dout = layer.back_prop(derror_dout, learning_rate)
-
+                
     def train(self, training_list, solution_list, learning_rate, iterations=1):
-        """ADD DOCUMENTATION HERE!"""
+        """Iterate through training_list iterations times and adjust weights.
 
-        # from timeit import default_timer as timer  # maybe valuable here!
+        As input, provide a list of solutions corresponding to the training_list
+        and provide a fixed learning rate.
+        """
+        
         for i in range(iterations):
             for t, s in zip(training_list, solution_list):
                 o = self.forward_prop(t)
@@ -166,6 +169,51 @@ class ConvolutionalNeuralNet(object):
                           'shape of solution_list.')
                 e, dedo = self.error_function(o, s)
                 self.back_prop(dedo, learning_rate, False)
+
+    def train2(self, training_images, training_solutions, test_images,
+               test_solutions, learning_rate, iterations=1,
+               printTimeConsumtion = False):
+        """Works simillary as train but tracks learning sucess."""
+
+        # if list is empty add the untrained status to sucess_point
+        if len(self.success_list) == 0:
+            self.success_list.append(self.test_net(test_images, test_solutions))
+        if printTimeConsumtion:
+            from timeit import default_timer as timer  # maybe valuable here!
+
+        for i in range(iterations):
+            if printTimeConsumtion:
+                start = timer()
+                
+            for t, s in zip(training_images, training_solutions):
+                o = self.forward_prop(t)
+                if o.shape != s.shape:
+                    print('Warning: Shapes of forward_prop output and',
+                          'solution_list entry do not match! Please check',
+                          'shape of solution_list.')
+                e, dedo = self.error_function(o, s)
+                self.back_prop(dedo, learning_rate, False)
+            
+            if printTimeConsumtion:
+                end = timer()
+                print('Consumed time for ', i, ' iteration:', end-start, ' seconds.')
+            self.success_list.append(self.test_net(test_images, test_solutions))
+
+    def plott_lernSuccess(self, plt):
+        """Plots the success of the network on y-axis and the corresponding
+           training iteration on x-axis
+        """
+        
+        import matplotlib.pyplot as plt
+        plt.figure()
+        plt.plot(self.success_list)
+        plt.ylim(0, 1)
+        plt.xlabel('Lernschritt')
+        plt.ylabel('Lernerfolg in Prozent')
+        plt.title('Lernfortschritt')
+        # plt.yticks(np.linspace(0, 1, 100), labels)
+        plt.tight_layout()
+        plt.grid(True)
 
     def test_net(self, test_sample, solutions):
         """Given list of samples with solutions (categories), benchmarks net.

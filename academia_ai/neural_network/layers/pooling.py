@@ -2,12 +2,16 @@ import numpy as np
 
 
 class PoolingLayer(object):
-    ''' Take matrices and reduces their size by (for instance) taking the
-        maximum of a collection of pixels. '''
+    """Reduce the size of input images by pooling pixels together.
 
-    def __init__(self, iid=-1, factor=5, typus='mean'):
+    The typus can be
+    "mean": ...
+    "max": 
+    Parameter factor specifies...?
+    """
+
+    def __init__(self, factor=5, typus='mean'):
         self.typus = typus  # can be 'max' 'mean' ('min' 'absmax')
-        self.iid = iid
         # factor=5 means that the matrix will be compressed 1:4. (for size 20)
         self.factor = factor
 
@@ -95,7 +99,5 @@ class PoolingLayer(object):
 
     def pprint(self):
         print(
-            "Pooling layer with ID ",
-            self.iid,
-            " and compressing factor",
+            "Pooling layer with compression factor",
             self.factor)
