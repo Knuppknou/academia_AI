@@ -1,5 +1,4 @@
 """Contains basic neural network structure that will host neural layers."""
-
 import os.path
 import numpy as np
 import pickle
