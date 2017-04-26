@@ -11,6 +11,7 @@ This is the code repository of the student research group [academia Wattwil](htt
 [Create Network](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Simple_Fully_Connected_Network_for_digits.ipynb)
 
 [CNN for Digits](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Neural_Network_for_Digits.ipynb)
+
 [CNN for Leafs](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/Neural_Network_for_Leafs.ipynb)
 
 [Preprocessing](https://github.com/Knuppknou/academia_ai/blob/master/academia_ai/examples/HowToUse-Preprocessing-2017-01-03.ipynb)
